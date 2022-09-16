@@ -220,8 +220,7 @@ export default function Home() {
                         <Image
                           src={"/img/check.png"}
                           alt="Twitter Check"
-                          width={20}
-                          height={20}
+                          layout={"fill"}
                           draggable={false}
                         />
                       </div>
@@ -230,8 +229,7 @@ export default function Home() {
                         <Image
                           src={"/img/counter.png"}
                           alt="Twitter Counter"
-                          width={400}
-                          height={24}
+                          layout={"fill"}
                         />
                       </div>
                     </div>
