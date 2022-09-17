@@ -174,11 +174,6 @@ export default function Home() {
     <div className={styles.home}>
       <Head>
         <title>LinkedInfluencer™</title>
-        <meta
-          name="description"
-          content="Impress your connections with LinkedInfluencer™!"
-        />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <header className={styles.header}>
