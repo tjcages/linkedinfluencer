@@ -4,6 +4,7 @@ import Image from "next/image";
 import reactImageSize from "react-image-size";
 import * as htmlToImage from "html-to-image";
 import download from "downloadjs";
+import { isMobile } from "../components/Agent";
 import styles from "../styles/home.module.scss";
 
 import Spinner from "../components/Spinner";
@@ -14,12 +15,18 @@ export default function Home() {
   const [uploading, setUploading] = React.useState(false);
   const [done, setDone] = React.useState(false);
   const [hasTouched, setHasTouched] = React.useState(false);
+  const [finalRender, setFinalRender] = React.useState(false);
+  const [mobile, setMobile] = React.useState(false);
   // drag state
   const [dragActive, setDragActive] = React.useState(null);
   // Create a reference to the hidden file input element
   const hiddenFileInput = React.useRef(null);
   const container = React.useRef(null);
   const check = React.useRef(null);
+
+  React.useEffect(() => {
+    setMobile(isMobile());
+  }, []);
 
   // Programatically click the hidden file input element
   // when the Button component is clicked
@@ -79,9 +86,21 @@ export default function Home() {
   const saveAsImage = () => {
     var node = document.getElementById("capture");
 
-    htmlToImage.toPng(node).then(function (dataUrl) {
-      download(dataUrl, "linkedinfluencer.png");
-    });
+    if (mobile) {
+      htmlToImage.toSvg(node).then(async function (dataUrl) {
+        if (mobile) {
+          const { width, height } = await reactImageSize(dataUrl);
+          setFinalRender({ src: dataUrl, width, height });
+        } else download(dataUrl, "linkedinfluencer.png");
+      });
+    } else {
+      htmlToImage.toPng(node).then(async function (dataUrl) {
+        if (mobile) {
+          const { width, height } = await reactImageSize(dataUrl);
+          setFinalRender({ src: dataUrl, width, height });
+        } else download(dataUrl, "linkedinfluencer.png");
+      });
+    }
   };
 
   function dragMove(event) {
@@ -155,7 +174,10 @@ export default function Home() {
     <div className={styles.home}>
       <Head>
         <title>LinkedInfluencer™</title>
-        <meta name="description" content="Impress your connections with LinkedInfluencer™!" />
+        <meta
+          name="description"
+          content="Impress your connections with LinkedInfluencer™!"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -289,18 +311,13 @@ export default function Home() {
             </div>
             {imageData &&
               (done ? (
-                <div className={styles.horiz}>
-                  <button
+                <button
                     className={`${styles.button} ${styles.dull}`}
                     disabled={uploading}
                     onClick={saveAsImage}
                   >
                     Save
                   </button>
-                  <button className={styles.button} disabled={uploading}>
-                    Share
-                  </button>
-                </div>
               ) : (
                 <button
                   className={styles.button}
@@ -355,6 +372,28 @@ export default function Home() {
         </a>
         <Image src="/linkedin.svg" alt="LinkedIn Logo" width={24} height={24} />
       </footer>
+
+      {mobile && finalRender && (
+        <div className={styles.finalPreview}>
+          <div
+            className={styles.final}
+            style={
+              finalRender && {
+                minHeight:
+                  (imageData.height / imageData.width) *
+                  container.current?.offsetWidth,
+              }
+            }
+          >
+            <Image
+              src={finalRender.src}
+              alt="Uploaded Image"
+              width={finalRender.width}
+              height={finalRender.height}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
