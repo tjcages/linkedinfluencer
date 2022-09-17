@@ -204,6 +204,7 @@ h1 .highlight {
   border-radius: 8px;
   border: none;
   cursor: pointer;
+  max-height: 48px;
 
   &:hover {
     background-color: #004182;
@@ -285,6 +286,15 @@ h1 .highlight {
     img {
       user-select: none;
     }
+
+    @media only screen and (max-width: 600px) {
+      & {
+        top: 48px;
+        left: 160px;
+        width: 16px;
+        height: 16px;
+      }
+    }
   }
 }
 .tutorial:after {
@@ -300,6 +310,15 @@ h1 .highlight {
   border: dashed 2px rgb(0 0 0 / 30%);
   opacity: 0.5;
   z-index: -1;
+
+  @media only screen and (max-width: 600px) {
+    & {
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+    }
+  }
 }
 
 .tutorial:before {
@@ -309,6 +328,13 @@ h1 .highlight {
   left: 40px;
   width: 100px;
   color: rgb(0 0 0 / 30%);
+
+  @media only screen and (max-width: 600px) {
+    & {
+      top: -2px;
+      left: 28px;
+    }
+  }
 }
 
 .horiz {
@@ -337,6 +363,16 @@ h1 .highlight {
   width: 28vw;
   height: 1.9vw;
   // opacity: 0.7;
+
+  @media only screen and (max-width: 600px) {
+    & {
+      bottom: 1.2vw;
+      left: 3.7vw;
+      width: 75vw;
+      height: 5.5vw;
+      // opacity: 0;
+    }
+  }
 }
 
 .footer {

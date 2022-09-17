@@ -31,6 +31,7 @@ export default function Home() {
   // triggers when file is selected with click
   const handleChange = function (e) {
     e.preventDefault();
+
     if (e.target.files && e.target.files[0]) {
       setImage(e.target.files[0]);
     }
@@ -85,6 +86,7 @@ export default function Home() {
 
   function dragMove(event) {
     let mouseX, mouseY;
+    event.preventDefault();
 
     if (event.type == "touchstart") {
       mouseX = event.touches[0].pageX;
@@ -145,7 +147,7 @@ export default function Home() {
     container.current.addEventListener("touchend", onUp, { passive: true });
   }
 
-  if (image) {
+  if (image && !imageData) {
     loadImage();
   }
 
