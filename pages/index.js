@@ -185,6 +185,15 @@ export default function Home() {
               layout={"fill"}
             />
           </div>
+
+          <a
+            href="https://www.partyround.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ marginTop: 4 }}
+          >
+            <Image src="/logo.svg" alt="LinkedIn Logo" width={24} height={24} />
+          </a>
         </div>
       </header>
 
@@ -307,12 +316,12 @@ export default function Home() {
             {imageData &&
               (done ? (
                 <button
-                    className={`${styles.button} ${styles.dull}`}
-                    disabled={uploading}
-                    onClick={saveAsImage}
-                  >
-                    Save
-                  </button>
+                  className={`${styles.button} ${styles.dull}`}
+                  disabled={uploading}
+                  onClick={saveAsImage}
+                >
+                  Save
+                </button>
               ) : (
                 <button
                   className={styles.button}
@@ -359,13 +368,12 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <a
-          href="https://www.linkedin.com/"
+          href="https://www.partyround.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by
+          A Party Round Mag Mini-Drop
         </a>
-        <Image src="/linkedin.svg" alt="LinkedIn Logo" width={24} height={24} />
       </footer>
 
       {mobile && finalRender && (
